@@ -6,11 +6,11 @@ import TagFrame from "../../TagFrame";
 import CardItems from "../../CardItems";
 const MostPicked = () => {
   return (
-    <div>
+    <div className="pb-10">
       <SectionTitle title="Most Picked" />
       <div className="flex flex-row justify-between">
         <div className="w-4/12 md:flex justify-between hidden md:block">
-          <div className="md:w-[360px] hover:scale-105 hover:opacity-70 rounded-[20px] md:h-[460px] relative">
+          <div className="md:w-[360px] cursor-pointer hover:scale-105 hover:opacity-70 rounded-[20px] md:h-[460px] relative">
             <TagFrame textBold="$80" text="per night" />{" "}
             <Image src={Iimage1} alt="most-picked1" />
           </div>

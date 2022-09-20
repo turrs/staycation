@@ -20,10 +20,18 @@ const Header = () => {
         <div className="w-1/2 md:pl-[180px] md:block hidden pt-5">
           <div>
             <ul className="flex flex-row justify-between">
-              <li className="font-['Poppins'] text-purple">Home</li>
-              <li className="font-['Poppins'] text-purple">Browse</li>
-              <li className="font-['Poppins'] text-purple">Stories</li>
-              <li className="font-['Poppins'] text-purple">Agents</li>
+              <li className="font-['Poppins'] cursor-pointer text-purple">
+                Home
+              </li>
+              <li className="font-['Poppins'] cursor-pointer text-purple">
+                Browse
+              </li>
+              <li className="font-['Poppins'] cursor-pointer text-purple">
+                Stories
+              </li>
+              <li className="font-['Poppins'] cursor-pointer text-purple">
+                Agents
+              </li>
             </ul>
           </div>
         </div>

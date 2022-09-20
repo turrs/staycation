@@ -4,7 +4,7 @@ import { Iimage2 } from "../../public/images";
 import TagFrame from "../TagFrame";
 const CardItems = ({ image, textBold, text }) => {
   return (
-    <div className="relative hover:scale-105 hover:opacity-70">
+    <div className="relative hover:scale-105 hover:opacity-70 cursor-pointer">
       <TagFrame textBold={textBold} text={text} />
       <Image
         width="100%"

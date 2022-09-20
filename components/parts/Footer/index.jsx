@@ -5,7 +5,7 @@ import SectionTitle from "../../SectionTitle";
 const Footer = () => {
   return (
     <div className="border-gray border-solid border-t-2">
-      <div className="flex flex-row flex-wrap md:flex-nowrap p-20">
+      <div className="flex flex-row flex-wrap md:flex-nowrap p-20 pb-10">
         <div className="w-6/12">
           <div className="flex flex-row">
             <p className="text-blue  font-['Poppins']  font-medium text-xl">
@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex w-full flex-row justify-between">
-          <div>
+          <div className="p-2">
             <div>
               <SectionTitle title="Beginners" />
             </div>
@@ -30,41 +30,47 @@ const Footer = () => {
               <LinkFooter text="New Account" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Start Booking a Room" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Use Payments" url="google.com" />
             </div>
           </div>
-          <div>
+          <div className="p-2">
             <div>
               <SectionTitle title="Explore us" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Our Careers" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Privacy" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Terms & Conditions" url="google.com" />
             </div>
           </div>
-          <div>
+          <div className="p-2">
             <div>
               <SectionTitle title="Connect us" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="support@staycation.id" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="021 - 2208 - 1996" url="google.com" />
             </div>
             <div>
-              <LinkFooter text="New Account" url="google.com" />
+              <LinkFooter text="Staycation, Kemang, Jakarta" url="google.com" />
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center pb-5">
+        <LinkFooter
+          text="Copyright 2019 • All rights reserved • Staycation"
+          url="google.com"
+        />
       </div>
     </div>
   );

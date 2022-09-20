@@ -5,7 +5,7 @@ import SectionTitle from "../SectionTitle";
 
 const HotelItems = () => {
   return (
-    <div className="w-[300px] h-[250px]">
+    <div className="w-[300px] h-[250px] cursor-pointer">
       <div className="w-[310px] h-[180px]">
         <CardItems image={Iimage1} textBold="90$" text=" per night" />
       </div>

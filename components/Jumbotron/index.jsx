@@ -18,7 +18,7 @@ const Jumbotron = () => {
           </p>
         </div>
         <div className="md:max-w-[320px]">
-          <p className="text-gray1 text-left text-[16px] text=['Poppins']">
+          <p className="text-gray1 text-left text-[16px] font-['Poppins']">
             We provide what you need to enjoy your holiday with family. Time to
             make another memorable moments.
           </p>
@@ -60,7 +60,7 @@ const Jumbotron = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row hidden md:block w-1/2 justify-end md:static md:pr-[70px]">
+      <div className="flex flex-row hidden md:block w-1/2 md:static md:pr-[70px] xl:pr-[120px]">
         <div className="">
           <Image
             alt="image-hero"
@@ -70,7 +70,7 @@ const Jumbotron = () => {
             src={Ijumbotron}
           />
         </div>
-        <div className="md:absolute md:-z-10 md:top-[210px] md:right-20">
+        <div className="md:absolute md:-z-10  md:top-[210px] md:right-20 xl:right-[180px]">
           <Image
             alt="frame-hero"
             width={520}
