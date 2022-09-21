@@ -2,7 +2,11 @@ import { DatePicker } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import Button from "../../Button";
-import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  MinusOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
 import { AppContext } from "../../../context";
 
 const { RangePicker } = DatePicker;
@@ -37,6 +41,7 @@ const StartBooking = () => {
       console.log("Clear");
     }
   };
+
   const addDays = (startDay, endDay) => {
     const startEndDay = moment(startDay);
     const endDateDay = moment(endDay);
@@ -55,7 +60,7 @@ const StartBooking = () => {
   };
   return (
     <div className="border-gray border-soli border-2 rounded-[20px] justify-center flex flex-col ">
-      <div className="flex md:p-20 p-5 flex-col justify-center">
+      <div className="flex md:p-[80px] p-5 flex-col justify-center">
         <div className="flex -my-2">
           <p className="font-bold text-purple font-['Popping'] text-lg ">
             Start Booking
@@ -98,22 +103,33 @@ const StartBooking = () => {
             Pick a Date
           </span>
         </div>
-        <div className="flex rounded-[10px] font-['Popping'] w-full flex-col py-2">
-          <RangePicker
-            disabledTime
-            style={{
-              width: "100%",
-              backgroundColor: "#E5E5E5",
-              color: "red",
-            }}
-            format="DD MMMM "
-            defaultValue={moment("2015-01-01", "YYYY-MMMM-DD")}
-            onChange={onChange}
-            value={[startDate, endDate]}
-            superNextIcon={null}
-            superPrevvIcon={null}
-            suffixIcon={false}
-          />
+        <div className="flex rounded-[10px] font-['Popping'] w-full py-2 flex-row">
+          <div className="hover:opacity-60   w-[45px] h-[45px] bg-purple rounded-[5px] flex justify-center items-center">
+            <CalendarOutlined style={{ color: "#ffffff", fontSize: 24 }} />
+          </div>
+          <div className="flex  grow rounded-[10px] ">
+            <RangePicker
+              style={{
+                width: "100%",
+                backgroundColor: "#E5E5E5",
+                textAlignLast: "center",
+              }}
+              format="MMMM DD YYYY"
+              placeholder={countDays}
+              separator={
+                <MinusOutlined style={{ color: "#152C5B", fontSize: 24 }} />
+              }
+              defaultValue={moment("2015-01-01", "MMMM DD")}
+              onChange={onChange}
+              value={[startDate, endDate]}
+              superNextIcon={null}
+              superPrevvIcon={null}
+              suffixIcon={false}
+              disabledDate={(current) => {
+                return current < moment().endOf("day");
+              }}
+            />
+          </div>
         </div>
         <div>
           <span className=" text-[#B0B0B0] font-['Popping'] text-[16px]  ">
