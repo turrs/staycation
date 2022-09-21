@@ -7,6 +7,7 @@ const CardItems = ({ image, textBold, text }) => {
     <div className="relative hover:scale-105 hover:opacity-70 cursor-pointer">
       <TagFrame textBold={textBold} text={text} />
       <Image
+        className="rounded-[20px]"
         width="100%"
         height="50%"
         layout="responsive"

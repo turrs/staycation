@@ -23,7 +23,7 @@ const Jumbotron = () => {
             make another memorable moments.
           </p>
         </div>
-        <div className="">
+        <div className="w-[250px]">
           <Button text="Shop Me Now" />
         </div>
         <div className="flex justify-around max-w-[410px] pt-20">

@@ -32,7 +32,7 @@ const Review = () => {
             Angga, Product Designer
           </p>
         </div>
-        <div className="md:pt-6">
+        <div className="md:pt-6 w-[250px]">
           <Button text="Read Their Story" />
         </div>
       </div>

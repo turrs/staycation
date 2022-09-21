@@ -13,7 +13,9 @@ function detailId() {
     <div className="xl:px-[100px]">
       <Header />
       <div className={styles.container}>
-        <PageHeaders />
+        <div className="pb-5">
+          <PageHeaders />
+        </div>
         <Description />
         <TypeHotel />
         <Review />
