@@ -7,7 +7,7 @@ const Review = () => {
   return (
     <div className="flex flex-row  relative flex-wrap">
       <div className="w-5/12">
-        <div className="absolute hidden md:block xl:block ">
+        <div className="absolute hidden xl:block ">
           <Image src={IframeReview} />
         </div>
         <div className="md:pt-10 pt-[50px] md:pl-10">
@@ -32,7 +32,7 @@ const Review = () => {
             Angga, Product Designer
           </p>
         </div>
-        <div className="md:pt-6 w-[250px]">
+        <div className="md:pt-6 w-[150px]  sm:w-[180px] md:w-[250px]">
           <Button text="Read Their Story" />
         </div>
       </div>

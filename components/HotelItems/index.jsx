@@ -1,11 +1,16 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { Iimage1 } from "../../public/images";
 import CardItems from "../CardItems";
 import SectionTitle from "../SectionTitle";
 
 const HotelItems = () => {
+  const router = useRouter();
   return (
-    <div className="w-[300px] h-[250px] cursor-pointer">
+    <div
+      onClick={() => router.push("/detail/detailId")}
+      className="w-[300px] h-[250px] cursor-pointer"
+    >
       <div className="w-[310px] h-[180px]">
         <CardItems image={Iimage1} textBold="90$" text=" per night" />
       </div>

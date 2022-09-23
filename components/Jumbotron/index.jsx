@@ -23,7 +23,7 @@ const Jumbotron = () => {
             make another memorable moments.
           </p>
         </div>
-        <div className="w-[250px]">
+        <div className="max-w-[250px]">
           <Button text="Shop Me Now" />
         </div>
         <div className="flex justify-around max-w-[410px] pt-20">
@@ -60,7 +60,7 @@ const Jumbotron = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row hidden md:block w-1/2 md:static md:pr-[70px] xl:pr-[120px]">
+      <div className="flex flex-row hidden xl:block w-1/2 md:static md:pr-[70px] xl:pr-[120px]">
         <div className="">
           <Image
             alt="image-hero"
