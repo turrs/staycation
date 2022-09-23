@@ -8,6 +8,7 @@ import {
   CalendarOutlined,
 } from "@ant-design/icons";
 import { AppContext } from "../../../context";
+import { useRouter } from "next/router";
 
 const { RangePicker } = DatePicker;
 const StartBooking = () => {
@@ -58,6 +59,7 @@ const StartBooking = () => {
       sum(startEndDay, endDateDay);
     }
   };
+  const router = useRouter();
   return (
     <div className="border-gray border-soli border-2 rounded-[20px] justify-center flex flex-col ">
       <div className="flex md:p-[80px] p-5 flex-col justify-center">
@@ -144,7 +146,10 @@ const StartBooking = () => {
           </span>
         </div>
         <div className="pt-5 w-full">
-          <Button text="Continue to Book" />
+          <Button
+            onClick={() => router.push("/booking")}
+            text="Continue to Book"
+          />
         </div>
       </div>
     </div>

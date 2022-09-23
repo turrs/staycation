@@ -5,17 +5,25 @@ import {
   StarOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
+import { useRouter } from "next/router";
 const Header = () => {
+  const router = useRouter();
   return (
     <div className="p-0 m-0">
       <div className="border-solid border-b-2 md:pr-[80px] md:pl-[80px] border-gray flex flex-row ">
-        <div className="w-1/2 flex flex-row pl-5 md:pl-0 pt-5">
-          <p className="text-blue  font-['Poppins']  font-medium text-xl">
-            Stay
-          </p>
-          <p className=" text-purple font-['Poppins']  font-medium text-xl">
-            cation
-          </p>
+        <div className="w-1/2  flex flex-row pl-5 md:pl-0 pt-5">
+          <div className="flex flex-row" onClick={() => router.push("/")}>
+            <div>
+              <p className="text-blue  font-['Poppins']  font-medium text-xl">
+                Stay
+              </p>
+            </div>
+            <div>
+              <p className=" text-purple font-['Poppins']  font-medium text-xl">
+                cation
+              </p>
+            </div>
+          </div>
         </div>
         <div className="w-1/2 md:pl-[180px] md:block hidden pt-5">
           <div>
