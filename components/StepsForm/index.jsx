@@ -2,10 +2,16 @@ import { Popover, Steps } from "antd";
 import React, { useContext, useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import { Ibooking, IlogoBca, IlogoMandiri } from "../../public/images";
+import {
+  Ibooking,
+  Icompleted,
+  IlogoBca,
+  IlogoMandiri,
+} from "../../public/images";
 import { AppContext } from "../../context";
 import TextInput from "../TextInput";
 import Button from "../Button";
+import { useRouter } from "next/router";
 const { Step } = Steps;
 
 const customDot = (dot, { status, index }) => {
@@ -149,7 +155,7 @@ const Payment = () => {
             </div>
           </div>
           <div className="px-20">
-            <div className="pt-5">
+            <div className="pt-5 flex justify-center">
               <form>
                 <div>
                   <TextInput />
@@ -172,11 +178,31 @@ const Payment = () => {
   );
 };
 const Completed = () => {
-  return <div>3</div>;
+  return (
+    <div className="flex justify-center p-5">
+      <div className="flex-col flex justify-center">
+        <div className="flex justify-center">
+          <p className="text-purple font-bold text-xl">Yay! Completed</p>
+        </div>
+        <div className="flex sm:justify-center sm:m-0 -mt-6 py-10">
+          <Image src={Icompleted}></Image>
+        </div>
+        <div className="flex sm:justify-center -mt-5 max-w-[400px]">
+          <p className="text-gray text-center text-md">
+            We will inform you via email later once the transaction has been
+            accepted
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 const StepsForm = () => {
   const [current, setCurrent] = useState(0);
-  const finish = () => {};
+  const router = useRouter();
+  const finish = () => {
+    router.push("/");
+  };
   const next = () => {
     setCurrent(current + 1);
   };
@@ -223,30 +249,29 @@ const StepsForm = () => {
           </div>
           <div>{steps[current].content}</div>
         </div>
-        <div className="flex justify-center flex-col ">
-          <div className="flex justify-center p-2">
+        <div className="flex  flex-col ">
+          <div className="flex justify-end sm:justify-center  pt-2 pb-2 px-10">
             {current < steps.length - 1 && (
-              <div className="w-[240px] h-[40px]">
-                <Button text="Next" onClick={() => next()} />
+              <div className="sm:w-[240px] w-[160px]  h-[40px]">
+                <Button text="Continue to book" onClick={() => next()} />
               </div>
             )}
             {current === steps.length - 1 && (
-              <div className="w-[240px] h-[40px]">
-                <Button
-                  type="gray"
-                  text="Done"
-                  className="bg-gray"
-                  onClick={() => finish()}
-                >
+              <div className="sm:w-[240px] w-[160px] h-[40px]">
+                <Button text="Done" onClick={() => finish()}>
                   Done
                 </Button>
               </div>
             )}
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-end sm:justify-center  pt-0 pb-2 px-10">
             {current > 0 && (
-              <div className="w-[240px] h-[40px]">
-                <Button text=" Previous" onClick={() => prev()}></Button>
+              <div className="sm:w-[240px] w-[160px] h-[40px]">
+                <Button
+                  type="gray"
+                  text="Previous"
+                  onClick={() => prev()}
+                ></Button>
               </div>
             )}
           </div>

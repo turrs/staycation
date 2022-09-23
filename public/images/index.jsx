@@ -10,7 +10,9 @@ import IframeReview from "./frame.png";
 import Ibooking from "./booking.png";
 import IlogoBca from "./logo_bca.png";
 import IlogoMandiri from "./logo_mandiri.png";
+import Icompleted from "./completed.png";
 export {
+  Icompleted,
   IlogoBca,
   IlogoMandiri,
   IframeReview,

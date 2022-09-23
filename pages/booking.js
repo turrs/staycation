@@ -5,7 +5,7 @@ export default function booking() {
   return (
     <div>
       <HeaderBooking />
-      <div className="pt-20">
+      <div className="md:p-10 -p-10">
         <StepsForm />
       </div>
     </div>
