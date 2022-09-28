@@ -3,7 +3,7 @@ import Image from "next/image";
 import { IframeReview, Ireview } from "../../../public/images";
 import Button from "../../Button";
 import StarsReview from "../../StarsReview";
-const Review = () => {
+const Review = ({ data }) => {
   return (
     <div className="flex flex-row  relative flex-wrap">
       <div className="w-5/12">
@@ -11,25 +11,28 @@ const Review = () => {
           <Image src={IframeReview} />
         </div>
         <div className="md:pt-10 pt-[50px] md:pl-10">
-          <Image src={Ireview} />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API}${data.imageUrl}`}
+            width={360}
+            height={480}
+          />
         </div>
       </div>
       <div className="w-7/12 flex flex-col justify-center p-2">
         <div>
           <p className="text-purple font-['Poppins'] font-bold md:text-lg">
-            Happy Family
+            {data.name}
           </p>
         </div>
         <div className="pt-2">
-          <StarsReview />
+          <StarsReview data={data.rate} />
         </div>
         <div>
           <p className="text-purple font-medium md:text-2xl font-['Poppins']">
-            What a great trip with my family and I should try again next time
-            soon ...
+            {data.content}
           </p>
           <p className="text-[#B0B0B0] font-['Poppins'] -mt-5">
-            Angga, Product Designer
+            {data.familyName}, {data.familyOccupation}
           </p>
         </div>
         <div className="md:pt-6 w-[150px]  sm:w-[180px] md:w-[250px]">

@@ -2,15 +2,17 @@ import React from "react";
 import HotelItems from "../../HotelItems";
 import SectionTitle from "../../SectionTitle";
 
-const TypeHotel = () => {
+const TypeHotel = ({ data }) => {
+  console.log(data);
   return (
     <div className="">
-      <SectionTitle title="Houses with beauty backyard" />
+      <SectionTitle title={data.name} />
       <div className="flex flex-row justify-between flex-wrap">
-        <HotelItems />
-        <HotelItems />
-        <HotelItems />
-        <HotelItems />
+        {data.itemId.map((items) => (
+          <div>
+            <HotelItems data={items} />
+          </div>
+        ))}
       </div>
     </div>
   );

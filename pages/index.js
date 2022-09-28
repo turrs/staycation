@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useContext, useEffect, useState } from "react";
 import {
   Footer,
   Header,
@@ -8,8 +10,22 @@ import {
   Review,
   TypeHotel,
 } from "../components";
+import { AppContext } from "../context";
 import styles from "../styles/Home.module.css";
+import Axios from "../axios";
+
 export default function Home() {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const fetchData = async () => {
+    setLoading(true);
+    const res = await Axios.get("landing-page");
+    setData(res.data);
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="xl:px-[100px]">
       <Head>
@@ -19,16 +35,25 @@ export default function Home() {
       </Head>
       <div className="">
         <Header />
-        <div className={styles.container}>
-          <Jumbotron />
-          <div className="pt-10">
-            <MostPicked />
-            <TypeHotel type="backyard" />
-            <TypeHotel type="livingroom" />
-            <TypeHotel type="kitchen" />
-            <Review />
+        {loading ? (
+          <>
+            <div className="flex justify-center items-center p-20">
+              <LoadingOutlined style={{ fontSize: "60px", color: "#3252DF" }} />
+            </div>
+          </>
+        ) : (
+          <div className={styles.container}>
+            <Jumbotron hero={data.hero} />
+
+            <div className="pt-10">
+              {/* <MostPicked data={data.mostPicked} /> */}
+              <TypeHotel type="backyard" data={data.category[0]} />
+              <TypeHotel type="livingroom" data={data.category[1]} />
+              <TypeHotel type="kitchen" data={data.category[2]} />
+              <Review data={data.testimonial} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="">
         <Footer />
