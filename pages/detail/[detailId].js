@@ -11,7 +11,7 @@ import {
 } from "../../components";
 import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
-function detailId() {
+export default function DetailId() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const fetchData = async () => {
@@ -29,7 +29,6 @@ function detailId() {
   return (
     <div className="xl:px-[100px]">
       <Header />
-
       <div className={styles.container}>
         {loading ? (
           <>
@@ -42,8 +41,6 @@ function detailId() {
             <div className="pb-5">
               <PageHeaders />
             </div>
-            <Header />
-
             <Description />
             <TypeHotel type="livingroom" data={data.category[1]} />
             <Review data={data.testimonial} />
@@ -55,4 +52,3 @@ function detailId() {
     </div>
   );
 }
-export default detailId;

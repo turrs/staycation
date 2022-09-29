@@ -9,7 +9,7 @@ const TypeHotel = ({ data }) => {
       <SectionTitle title={data.name} />
       <div className="flex flex-row justify-between flex-wrap">
         {data.itemId.map((items) => (
-          <div>
+          <div key={items.id}>
             <HotelItems data={items} />
           </div>
         ))}
