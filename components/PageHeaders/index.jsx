@@ -1,6 +1,7 @@
+import { data } from "autoprefixer";
 import React from "react";
 
-const PageHeaders = () => {
+const PageHeaders = ({ data }) => {
   return (
     <div className="flex flex-row static pb-5">
       <div>
@@ -11,11 +12,13 @@ const PageHeaders = () => {
         <div className="">
           <div className="flex justify-center">
             <p className="text-purple font-['Poppins'] font-bold text-2xl">
-              Village Angga
+              {data.title}
             </p>
           </div>
           <div className="-mt-6 flex justify-center">
-            <p className="text-[#B0B0B0]">Bogor, Indonesia</p>
+            <p className="text-[#B0B0B0]">
+              {data.city}, {data.country}
+            </p>
           </div>
         </div>
       </div>

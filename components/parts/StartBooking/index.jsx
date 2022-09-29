@@ -11,7 +11,7 @@ import { AppContext } from "../../../context";
 import { useRouter } from "next/router";
 
 const { RangePicker } = DatePicker;
-const StartBooking = () => {
+const StartBooking = ({ data }) => {
   const {
     setStartDate,
     startDate,
@@ -22,7 +22,7 @@ const StartBooking = () => {
     pricePay,
     setPricePay,
   } = useContext(AppContext);
-  const [price, setPrice] = useState(280);
+  const [price, setPrice] = useState(data.price);
   const sum = (start, end) => {
     var diff = end.diff(start, "days");
     setCountDays(diff + 1);
@@ -58,6 +58,9 @@ const StartBooking = () => {
       setEndDate(moment(substract));
       sum(startEndDay, endDateDay);
     }
+  };
+  const startBookingHotel = () => {
+    router.push("/booking");
   };
   const router = useRouter();
   return (
@@ -146,10 +149,7 @@ const StartBooking = () => {
           </span>
         </div>
         <div className="pt-5 w-full">
-          <Button
-            onClick={() => router.push("/booking")}
-            text="Continue to Book"
-          />
+          <Button onClick={() => startBookingHotel} text="Continue to Book" />
         </div>
       </div>
     </div>

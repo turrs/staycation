@@ -7,7 +7,6 @@ const CardItems = ({ imageData, textBold, isPopular, type, id }) => {
   const router = useRouter();
 
   const myLoader = ({ src, width, height, quality }) => {
-    console.log(src);
     return `${src}?w=${width}&h=${height}&q=${quality || 75}`;
   };
   if (imageData === undefined) {
