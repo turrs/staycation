@@ -28,7 +28,7 @@ const CardItems = ({ imageData, textBold, isPopular, type, id }) => {
         width="100%"
         height="50%"
         layout="responsive"
-        src={`${process.env.NEXT_PUBLIC_API}${imageData}`}
+        src={`${process.env.API_BACKEND}${imageData}`}
         alt="image"
       />
     </div>

@@ -12,7 +12,7 @@ const Review = ({ data }) => {
         </div>
         <div className="md:pt-10 pt-[50px] md:pl-10">
           <Image
-            src={`${process.env.NEXT_PUBLIC_API}${data.imageUrl}`}
+            src={`${process.env.API_BACKEND}${data.imageUrl}`}
             width={360}
             height={480}
           />
