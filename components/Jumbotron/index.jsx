@@ -8,7 +8,7 @@ import {
   Itreasure,
 } from "../../public/images";
 import Button from "../Button";
-const Jumbotron = () => {
+const Jumbotron = ({ hero }) => {
   return (
     <div className="flex flex-row flex-wrap">
       <div className="flex md:w-1/2 flex-col">
@@ -35,7 +35,9 @@ const Jumbotron = () => {
               src={Itraveler}
             />
             <p>
-              <span className="font-medium text-purple text-[16px]">18272</span>
+              <span className="font-medium text-purple text-[16px]">
+                {hero.travelers}
+              </span>
               <span className="text-gray1"> travelers</span>
             </p>
           </div>
@@ -47,14 +49,18 @@ const Jumbotron = () => {
               src={Itreasure}
             />
             <p>
-              <span className="font-medium text-purple text-[16px]">1678</span>
+              <span className="font-medium text-purple text-[16px]">
+                {hero.treasures}
+              </span>
               <span className="text-gray1"> treasure</span>
             </p>
           </div>
           <div>
             <Image alt="image-traveler" width={32} height={32} src={Itcities} />
             <p>
-              <span className="font-medium text-purple text-[16px]">1958</span>
+              <span className="font-medium text-purple text-[16px]">
+                {hero.cities}
+              </span>
               <span className="text-gray1"> cities</span>
             </p>
           </div>
