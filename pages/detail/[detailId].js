@@ -14,17 +14,26 @@ import styles from "../../styles/Home.module.css";
 export default function DetailId() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [dataDetail, setDataDetail] = useState();
   const fetchData = async () => {
     setLoading(true);
     const res = await Axios.get("landing-page");
     setData(res.data);
+    console.log("data detail", res.data);
     setLoading(false);
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
   const router = useRouter();
   const { pid } = router.query;
+  const fetchDataDetail = async (id) => {
+    const res = await Axios.get(`detail-page/${id}`);
+    setDataDetail(res.data);
+  };
+  useEffect(() => {
+    if (router.isReady) {
+      fetchData();
+      fetchDataDetail(router.query.DetailId);
+    }
+  }, [router.isReady]);
 
   return (
     <div className="xl:px-[100px]">
@@ -39,11 +48,11 @@ export default function DetailId() {
         ) : (
           <>
             <div className="pb-5">
-              <PageHeaders />
+              <PageHeaders data={dataDetail} />
             </div>
-            <Description />
+            <Description data={dataDetail} />
             <TypeHotel type="livingroom" data={data.category[1]} />
-            <Review data={data.testimonial} />
+            <Review data={dataDetail.testimonial} />
           </>
         )}
       </div>
