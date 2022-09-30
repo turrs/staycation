@@ -21,6 +21,7 @@ const StartBooking = ({ data }) => {
     setCountDays,
     pricePay,
     setPricePay,
+    setNewBookingData,
   } = useContext(AppContext);
   const [price, setPrice] = useState(data.price);
   const sum = (start, end) => {
@@ -59,7 +60,15 @@ const StartBooking = ({ data }) => {
       sum(startEndDay, endDateDay);
     }
   };
-  const startBookingHotel = () => {
+  const startBookingHotel = (data, startDate, endDate, countDays, pricePay) => {
+    console.log("test", data);
+    console.log("test start", startDate);
+    var newBooking = data;
+    newBooking.startDate = moment(startDate);
+    newBooking.endDate = moment(endDate);
+    newBooking.countDays = countDays;
+    newBooking.pricePay = pricePay;
+    setNewBookingData(newBooking);
     router.push("/booking");
   };
   const router = useRouter();
@@ -149,7 +158,12 @@ const StartBooking = ({ data }) => {
           </span>
         </div>
         <div className="pt-5 w-full">
-          <Button onClick={() => startBookingHotel} text="Continue to Book" />
+          <Button
+            onClick={() =>
+              startBookingHotel(data, startDate, endDate, countDays, pricePay)
+            }
+            text="Continue to Book"
+          />
         </div>
       </div>
     </div>

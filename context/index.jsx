@@ -7,10 +7,20 @@ export const ContexWrapper = ({ children }) => {
   const [countDays, setCountDays] = useState(1);
   const [pricePay, setPricePay] = useState(0);
   const [dataLandingPage, setDataLandingPage] = useState();
+  const [newBookingData, setNewBookingData] = useState();
+  const [dataUserNewBooking, setDataUserNewBooking] = useState({
+    firstName: "",
+    lastName: "",
+    emailAdress: "",
+    phoneNumber: "",
+    proofPaying: "",
+    bankPaying: "",
+    namePaying: "",
+  });
   const getDataLandingPage = async () => {
     try {
       const response = await Axios.get("/landing-page");
-      console.log(1, response);
+
       setDataLandingPage(response);
     } catch (ex) {
       if (ex && ex !== undefined && ex.toString && ex.toString !== undefined) {
@@ -40,6 +50,10 @@ export const ContexWrapper = ({ children }) => {
         setCountDays,
         pricePay,
         setPricePay,
+        newBookingData,
+        setNewBookingData,
+        dataUserNewBooking,
+        setDataUserNewBooking,
       }}
     >
       {children}
