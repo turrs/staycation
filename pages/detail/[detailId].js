@@ -16,9 +16,12 @@ export default function DetailId() {
   const [loading, setLoading] = useState(true);
   const [dataDetail, setDataDetail] = useState();
   const fetchData = async () => {
-    const res = await Axios.get("landing-page");
-    setData(res.data);
-    console.log("data detail", res.data);
+    try {
+      const res = await Axios.get("landing-page");
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const mergeFunction = async (router) => {
     setLoading(true);
@@ -28,9 +31,13 @@ export default function DetailId() {
   };
   const router = useRouter();
   const { pid } = router.query;
-  const fetchDataDetail = async (id, fetchData) => {
-    const res = await Axios.get(`detail-page/${id}`);
-    setDataDetail(res.data);
+  const fetchDataDetail = async (id) => {
+    try {
+      const res = await Axios.get(`detail-page/${id}`);
+      setDataDetail(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     if (router.isReady) {
