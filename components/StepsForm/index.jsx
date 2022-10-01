@@ -14,7 +14,8 @@ import Button from "../Button";
 import { useRouter } from "next/router";
 import next from "next";
 const { Step } = Steps;
-
+import moment from "moment";
+import Axios from "../../axios";
 const customDot = (dot, { status, index }) => {
   return (
     <div
@@ -57,7 +58,7 @@ const BookingInformation = () => {
   };
   const onChangePhoneNumber = (value) => {
     setDataUserNewBooking({ ...dataUserNewBooking, phoneNumber: value });
-    console.log(dataUserNewBooking);
+    console.log(dataUserNewBooking.proofPaying);
   };
   return (
     <div className="flex justify-center p-5">
@@ -153,14 +154,19 @@ const Payment = () => {
     setDataUserNewBooking,
   } = useContext(AppContext);
 
-  const onChangeProofPaying = (value) => {
-    setDataUserNewBooking({ ...dataUserNewBooking, proofPaying: value });
+  const onChangeProofPaying = (event) => {
+    console.log("nih value image", event.target.files[0]);
+    setDataUserNewBooking({
+      ...dataUserNewBooking,
+      proofPaying: event.target.files[0],
+    });
   };
   const onChangeBankPaying = (value) => {
     setDataUserNewBooking({ ...dataUserNewBooking, bankPaying: value });
   };
   const onChangeNamePaying = (value) => {
     setDataUserNewBooking({ ...dataUserNewBooking, namePaying: value });
+    console.log(1111111, dataUserNewBooking);
   };
   return (
     <div className="flex justify-center p-5">
@@ -220,8 +226,8 @@ const Payment = () => {
                 <div>
                   <TextInput
                     title="Upload Bukti Transfer"
-                    value={dataUserNewBooking.proofPaying}
-                    onChange={(e) => onChangeProofPaying(e.target.value)}
+                    onChange={onChangeProofPaying}
+                    type="file"
                   />
                 </div>
                 <div className="pt-4">
@@ -269,6 +275,7 @@ const Completed = () => {
   );
 };
 const StepsForm = () => {
+  const { dataUserNewBooking, newBookingData } = useContext(AppContext);
   const [current, setCurrent] = useState(0);
   const router = useRouter();
   const finish = () => {
@@ -283,9 +290,69 @@ const StepsForm = () => {
     setCurrent(current - 1);
   };
 
-  const postBooking = () => {
-    console.log("weqwe");
-    setCurrent(current + 1);
+  const postBooking = async () => {
+    console.log(123123, dataUserNewBooking.proofPaying);
+    console.log("hotel");
+    var startDate = moment(newBookingData.startDate).format("MM-DD-YYYY");
+    var endDate = moment(newBookingData.endDate).format("MM-DD-YYYY");
+    console.log("start date", startDate);
+    if (
+      newBookingData._id === undefined ||
+      newBookingData.countDays === undefined ||
+      startDate === undefined ||
+      endDate === undefined ||
+      dataUserNewBooking.firstName === undefined ||
+      dataUserNewBooking.lastName === undefined ||
+      dataUserNewBooking.emailAdress === undefined ||
+      dataUserNewBooking.phoneNumber === undefined ||
+      dataUserNewBooking.namePaying === undefined ||
+      dataUserNewBooking.bankPaying === undefined
+    ) {
+      console.log("lengkapi semua field");
+    } else {
+      try {
+        var dataBooking = {
+          idItem: newBookingData._id,
+          duration: newBookingData.countDays,
+          bookingStartDate: startDate,
+          bookingEndDate: endDate,
+          firstName: dataUserNewBooking.firstName,
+          lastName: dataUserNewBooking.lastName,
+          email: dataUserNewBooking.emailAdress,
+          phoneNumber: dataUserNewBooking.phoneNumber,
+          accountHolder: dataUserNewBooking.namePaying,
+          bankFrom: dataUserNewBooking.bankPaying,
+          image: dataUserNewBooking.proofPaying,
+        };
+        const formData = new FormData();
+        formData.append("idItem", dataBooking.idItem);
+        formData.append("duration", dataBooking.duration);
+        formData.append("bookingStartDate", dataBooking.bookingStartDate);
+        formData.append("bookingEndDate", dataBooking.bookingEndDate);
+        formData.append("firstName", dataBooking.firstName);
+        formData.append("lastName", dataBooking.lastName);
+        formData.append("email", dataBooking.email);
+        formData.append("phoneNumber", dataBooking.phoneNumber);
+        formData.append("accountHolder", dataBooking.accountHolder);
+        formData.append("bankFrom", dataBooking.bankFrom);
+        formData.append("image", dataBooking.image);
+        const config = {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        };
+        const response = await Axios.post(
+          "/booking-page",
+          formData,
+          config
+        ).then((res) => {
+          console.log(res);
+        });
+        console.log("response", response);
+      } catch (err) {
+        console.log("niw response", err);
+      }
+    }
   };
   const steps = [
     {
