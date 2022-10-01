@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextInput = ({ title, id, value, onChange }) => {
+const TextInput = ({ title, id, value, onChange, type }) => {
   return (
     <div>
       <div>
@@ -10,6 +10,7 @@ const TextInput = ({ title, id, value, onChange }) => {
         id={id}
         value={value}
         onChange={onChange}
+        type={type}
         className="bg-gray w-[320px] h-[45px] rounded-[10px] p-2 text-purple font-medium"
       />
     </div>
