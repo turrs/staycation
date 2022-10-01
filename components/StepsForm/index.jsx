@@ -203,7 +203,7 @@ const Payment = () => {
                 </div>
               </div>
               {newBookingData.bank.map((items) => (
-                <div className="md:pl-28 md:pt-5 flex flex-row">
+                <div className="md:pl-28 md:pt-5 flex flex-row" key={items.id}>
                   <div className="flex  items-center">
                     <Image
                       width={80}

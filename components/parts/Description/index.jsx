@@ -8,6 +8,7 @@ const Description = ({ data }) => {
       <div className="flex flex-row">
         <div className="md:w-7/12  hover:scale-105 flex justify-center items-center ">
           <Image
+            alt={data.imageId[0].name}
             className="rounded-[20px]"
             width={700}
             height={530}
@@ -17,6 +18,7 @@ const Description = ({ data }) => {
         <div className="w-5/12 py-2 md:block hidden">
           <div className="py-2 hover:scale-105">
             <Image
+              alt={data.imageId[1].name}
               className="rounded-[20px]"
               src={`${process.env.API_BACKEND}${data.imageId[1].imageUrl}`}
               height={280}
@@ -25,6 +27,7 @@ const Description = ({ data }) => {
           </div>
           <div className="py-2 hover:scale-105">
             <Image
+              alt={data.imageId[2].name}
               className="rounded-[20px]"
               src={`${process.env.API_BACKEND}${data.imageId[2].imageUrl}`}
               height={280}

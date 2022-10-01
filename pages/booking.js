@@ -3,7 +3,9 @@ import React, { useContext } from "react";
 import { HeaderBooking, StepsForm } from "../components";
 import { AppContext } from "../context";
 
-export default function booking() {
+
+export default function Booking() {
+
   const router = useRouter();
   const { pid } = router.query;
 
