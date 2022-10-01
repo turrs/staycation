@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Axios from "../../axios";
 import { LoadingOutlined } from "@ant-design/icons";
 import {
@@ -11,7 +11,9 @@ import {
 } from "../../components";
 import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
+import { AppContext } from "../../context";
 export default function DetailId() {
+  const { detailHotel } = useContext(AppContext);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [dataDetail, setDataDetail] = useState();
@@ -23,17 +25,17 @@ export default function DetailId() {
       console.log(err);
     }
   };
-  const mergeFunction = async (router) => {
+  const mergeFunction = async (detailHotel) => {
     setLoading(true);
     await fetchData();
-    await fetchDataDetail(router.query.DetailId);
+    await fetchDataDetail(detailHotel);
     setLoading(false);
   };
   const router = useRouter();
   const { pid } = router.query;
-  const fetchDataDetail = async (id) => {
+  const fetchDataDetail = async (detailHotel) => {
     try {
-      const res = await Axios.get(`detail-page/${id}`);
+      const res = await Axios.get(`detail-page/${detailHotel}`);
       setDataDetail(res.data);
     } catch (err) {
       console.log(err);
@@ -41,7 +43,7 @@ export default function DetailId() {
   };
   useEffect(() => {
     if (router.isReady) {
-      mergeFunction(router);
+      mergeFunction(detailHotel);
     }
   }, [router.isReady]);
 

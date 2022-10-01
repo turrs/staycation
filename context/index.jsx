@@ -8,6 +8,7 @@ export const ContexWrapper = ({ children }) => {
   const [pricePay, setPricePay] = useState(0);
   const [dataLandingPage, setDataLandingPage] = useState();
   const [newBookingData, setNewBookingData] = useState();
+  const [detailHotel, setDetailHotel] = useState();
   const [dataUserNewBooking, setDataUserNewBooking] = useState({
     firstName: "",
     lastName: "",
@@ -54,6 +55,8 @@ export const ContexWrapper = ({ children }) => {
         setNewBookingData,
         dataUserNewBooking,
         setDataUserNewBooking,
+        detailHotel,
+        setDetailHotel,
       }}
     >
       {children}

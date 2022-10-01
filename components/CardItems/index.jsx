@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Image from "next/image";
 import { Iimage2 } from "../../public/images";
 import TagFrame from "../TagFrame";
 import { useRouter } from "next/router";
+import { AppContext } from "../../context";
 const CardItems = ({ imageData, textBold, isPopular, type, id }) => {
+  const { detailHotel, setDetailHotel } = useContext(AppContext);
   const router = useRouter();
-
+  const onClick = (id) => {
+    setDetailHotel(id);
+    router.push(`/detail/${id}`);
+  };
   const myLoader = ({ src, width, height, quality }) => {
     return `${src}?w=${width}&h=${height}&q=${quality || 75}`;
   };
@@ -15,7 +20,7 @@ const CardItems = ({ imageData, textBold, isPopular, type, id }) => {
   }
   return (
     <div
-      onClick={() => router.push(`/detail/${id}`)}
+      onClick={() => onClick(id)}
       className="relative hover:scale-105 hover:opacity-70 cursor-pointer"
     >
       <TagFrame textBold={textBold} isPopular={isPopular} type={type} />
