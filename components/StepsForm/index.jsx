@@ -12,10 +12,11 @@ import { AppContext } from "../../context";
 import TextInput from "../TextInput";
 import Button from "../Button";
 import { useRouter } from "next/router";
+import next from "next";
 const { Step } = Steps;
-
+import moment from "moment";
+import Axios from "../../axios";
 const customDot = (dot, { status, index }) => {
-  console.log(11, status + "index" + index);
   return (
     <div
       className={`border-dashed border-[#1ABC9C] ${
@@ -39,7 +40,26 @@ const customDot = (dot, { status, index }) => {
   );
 };
 const BookingInformation = () => {
-  const { pricePay, countDays } = useContext(AppContext);
+  const {
+    pricePay,
+    countDays,
+    newBookingData,
+    dataUserNewBooking,
+    setDataUserNewBooking,
+  } = useContext(AppContext);
+  const onChangeFirstName = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, firstName: value });
+  };
+  const onChangeLastName = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, lastName: value });
+  };
+  const onChangeEmailAdress = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, emailAdress: value });
+  };
+  const onChangePhoneNumber = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, phoneNumber: value });
+    console.log(dataUserNewBooking.proofPaying);
+  };
   return (
     <div className="flex justify-center p-5">
       <div className="flex-col flex justify-center">
@@ -59,36 +79,65 @@ const BookingInformation = () => {
             <div className="md:pt-14 flex flex-row justify-between">
               <div>
                 <div>
-                  <span className="text-purple font-semibold">Podo Wae</span>
+                  <span className="text-purple font-semibold">
+                    {newBookingData?.title}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[#B0B0B0] ">Madiun, Indonesia</span>
+                  <span className="text-[#B0B0B0] ">
+                    {newBookingData?.city}, {newBookingData?.country}
+                  </span>
                 </div>
               </div>
               <div>
                 <span className="text-purple font-semibold font-['Popping'] px-1">
-                  $ {pricePay <= 0 ? "280" : pricePay} USD
+                  ${" "}
+                  {newBookingData?.pricePay <= 0
+                    ? "280"
+                    : newBookingData?.pricePay}{" "}
+                  USD
                 </span>
                 per
                 <span className="text-purple font-semibold font-['Popping'] px-1">
-                  {countDays} nights
+                  {newBookingData?.countDays} nights
                 </span>
               </div>
             </div>
           </div>
           <div className="px-20">
             <div className="pt-5">
-              <form>
-                <div className="pt-4">
-                  <TextInput />
-                </div>
-                <div className="pt-4">
-                  <TextInput />
-                </div>
-                <div className="pt-4">
-                  <TextInput />
-                </div>
-              </form>
+              <div className="pt-4">
+                <TextInput
+                  title="First Name"
+                  id="firstName"
+                  value={dataUserNewBooking.firstName}
+                  onChange={(e) => onChangeFirstName(e.target.value)}
+                />
+              </div>
+              <div className="pt-4">
+                <TextInput
+                  title="Last Name"
+                  id="lastName"
+                  value={dataUserNewBooking.lastName}
+                  onChange={(e) => onChangeLastName(e.target.value)}
+                />
+              </div>
+              <div className="pt-4">
+                <TextInput
+                  title="Email Adress"
+                  id="emailAdress"
+                  value={dataUserNewBooking.emailAdress}
+                  onChange={(e) => onChangeEmailAdress(e.target.value)}
+                />
+              </div>
+              <div className="pt-4">
+                <TextInput
+                  title="Phone Number"
+                  id="phoneNumber"
+                  value={dataUserNewBooking.phoneNumber}
+                  onChange={(e) => onChangePhoneNumber(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +146,28 @@ const BookingInformation = () => {
   );
 };
 const Payment = () => {
-  const { pricePay, countDays } = useContext(AppContext);
+  const {
+    pricePay,
+    countDays,
+    newBookingData,
+    dataUserNewBooking,
+    setDataUserNewBooking,
+  } = useContext(AppContext);
+
+  const onChangeProofPaying = (event) => {
+    console.log("nih value image", event.target.files[0]);
+    setDataUserNewBooking({
+      ...dataUserNewBooking,
+      proofPaying: event.target.files[0],
+    });
+  };
+  const onChangeBankPaying = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, bankPaying: value });
+  };
+  const onChangeNamePaying = (value) => {
+    setDataUserNewBooking({ ...dataUserNewBooking, namePaying: value });
+    console.log(1111111, dataUserNewBooking);
+  };
   return (
     <div className="flex justify-center p-5">
       <div className="flex-col flex justify-center">
@@ -123,51 +193,58 @@ const Payment = () => {
                 </div>
                 <div>
                   <span className="text-purple font-semibold">
-                    Sub total: $480 USD
+                    Sub total: ${newBookingData.price} USD
                   </span>
                 </div>
                 <div>
                   <span className="text-purple font-semibold">
-                    Total: $580 USD
+                    Total: ${newBookingData.pricePay} USD
                   </span>
                 </div>
               </div>
-              <div className="md:pl-28 md:pt-10 flex flex-row">
-                <div className="flex  items-center">
-                  <Image src={IlogoBca} />
+              {newBookingData.bank.map((items) => (
+                <div className="md:pl-28 md:pt-5 flex flex-row">
+                  <div className="flex  items-center">
+                    <Image
+                      width={80}
+                      height={30}
+                      src={`${process.env.API_BACKEND}${items.imageUrl}`}
+                    />
+                  </div>
+                  <div className="flex flex-col p-2">
+                    <span className="text-purple ">{items.nameBank}</span>
+                    <span className="text-purple ">{items.nomorRekening}</span>
+                    <span className="text-purple ">{items.name}</span>
+                  </div>
                 </div>
-                <div className="flex flex-col p-2">
-                  <span className="text-purple ">Bank Central Asia</span>
-                  <span className="text-purple ">22342342</span>
-                  <span className="text-purple ">Fatur Rahman</span>
-                </div>
-              </div>
-              <div className="md:pl-28 md:pt-10 flex flex-row">
-                <div className="flex  items-center">
-                  <Image src={IlogoMandiri} />
-                </div>
-                <div className="flex flex-col p-2">
-                  <span className="text-purple ">Mandiri</span>
-                  <span className="text-purple ">84333444</span>
-                  <span className="text-purple ">Fatur Rahman</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="px-20">
             <div className="pt-5 flex justify-center">
               <form>
                 <div>
-                  <TextInput />
+                  <TextInput
+                    title="Upload Bukti Transfer"
+                    onChange={onChangeProofPaying}
+                    type="file"
+                  />
                 </div>
                 <div className="pt-4">
-                  <TextInput />
+                  <TextInput
+                    title="Asal Bank"
+                    id="bank"
+                    value={dataUserNewBooking.bankPaying}
+                    onChange={(e) => onChangeBankPaying(e.target.value)}
+                  />
                 </div>
                 <div className="pt-4">
-                  <TextInput />
-                </div>
-                <div className="pt-4">
-                  <TextInput />
+                  <TextInput
+                    title="Nama Pengirim"
+                    id="name"
+                    value={dataUserNewBooking.namePaying}
+                    onChange={(e) => onChangeNamePaying(e.target.value)}
+                  />
                 </div>
               </form>
             </div>
@@ -198,17 +275,84 @@ const Completed = () => {
   );
 };
 const StepsForm = () => {
+  const { dataUserNewBooking, newBookingData } = useContext(AppContext);
   const [current, setCurrent] = useState(0);
   const router = useRouter();
   const finish = () => {
     router.push("/");
   };
-  const next = () => {
+  const next = (event) => {
+    console.log("form", event);
     setCurrent(current + 1);
   };
 
   const prev = () => {
     setCurrent(current - 1);
+  };
+
+  const postBooking = async () => {
+    console.log(123123, dataUserNewBooking.proofPaying);
+    console.log("hotel");
+    var startDate = moment(newBookingData.startDate).format("MM-DD-YYYY");
+    var endDate = moment(newBookingData.endDate).format("MM-DD-YYYY");
+    console.log("start date", startDate);
+    if (
+      newBookingData._id === undefined ||
+      newBookingData.countDays === undefined ||
+      startDate === undefined ||
+      endDate === undefined ||
+      dataUserNewBooking.firstName === undefined ||
+      dataUserNewBooking.lastName === undefined ||
+      dataUserNewBooking.emailAdress === undefined ||
+      dataUserNewBooking.phoneNumber === undefined ||
+      dataUserNewBooking.namePaying === undefined ||
+      dataUserNewBooking.bankPaying === undefined
+    ) {
+      console.log("lengkapi semua field");
+    } else {
+      try {
+        var dataBooking = {
+          idItem: newBookingData._id,
+          duration: newBookingData.countDays,
+          bookingStartDate: startDate,
+          bookingEndDate: endDate,
+          firstName: dataUserNewBooking.firstName,
+          lastName: dataUserNewBooking.lastName,
+          email: dataUserNewBooking.emailAdress,
+          phoneNumber: dataUserNewBooking.phoneNumber,
+          accountHolder: dataUserNewBooking.namePaying,
+          bankFrom: dataUserNewBooking.bankPaying,
+          image: dataUserNewBooking.proofPaying,
+        };
+        const formData = new FormData();
+        formData.append("idItem", dataBooking.idItem);
+        formData.append("duration", dataBooking.duration);
+        formData.append("bookingStartDate", dataBooking.bookingStartDate);
+        formData.append("bookingEndDate", dataBooking.bookingEndDate);
+        formData.append("firstName", dataBooking.firstName);
+        formData.append("lastName", dataBooking.lastName);
+        formData.append("email", dataBooking.email);
+        formData.append("phoneNumber", dataBooking.phoneNumber);
+        formData.append("accountHolder", dataBooking.accountHolder);
+        formData.append("bankFrom", dataBooking.bankFrom);
+        formData.append("image", dataBooking.image);
+        const config = {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        };
+        const response = await Axios.post(
+          "/booking-page",
+          formData,
+          config
+        ).then((res) => {
+          console.log(res);
+        });
+        console.log("response", response);
+      } catch (err) {
+        console.log("niw response", err);
+      }
+    }
   };
   const steps = [
     {
@@ -250,12 +394,17 @@ const StepsForm = () => {
           <div>{steps[current].content}</div>
         </div>
         <div className="flex  flex-col ">
-          <div className="flex justify-end sm:justify-center  pt-2 pb-2 px-10">
-            {current < steps.length - 1 && (
-              <div className="sm:w-[240px] w-[160px]  h-[40px]">
-                <Button text="Continue to book" onClick={() => next()} />
-              </div>
-            )}
+          <div className="flex justify-end sm:justify-center  pt-10 pb-2 px-10">
+            {current < steps.length - 1 &&
+              (current === steps.length - 2 ? (
+                <div className="sm:w-[240px] w-[160px]  h-[40px]">
+                  <Button text="Booking" onClick={() => postBooking()} />
+                </div>
+              ) : (
+                <div className="sm:w-[240px] w-[160px]  h-[40px]">
+                  <Button text="Continue to book" onClick={() => next()} />
+                </div>
+              ))}
             {current === steps.length - 1 && (
               <div className="sm:w-[240px] w-[160px] h-[40px]">
                 <Button text="Done" onClick={() => finish()}>

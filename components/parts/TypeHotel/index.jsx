@@ -3,7 +3,7 @@ import HotelItems from "../../HotelItems";
 import SectionTitle from "../../SectionTitle";
 
 const TypeHotel = ({ data }) => {
-  console.log(data);
+
   return (
     <div className="">
       <SectionTitle title={data.name} />
