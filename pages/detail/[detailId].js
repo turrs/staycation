@@ -16,22 +16,25 @@ export default function DetailId() {
   const [loading, setLoading] = useState(true);
   const [dataDetail, setDataDetail] = useState();
   const fetchData = async () => {
-    setLoading(true);
     const res = await Axios.get("landing-page");
     setData(res.data);
     console.log("data detail", res.data);
+  };
+  const mergeFunction = async (router) => {
+    setLoading(true);
+    await fetchData();
+    await fetchDataDetail(router.query.DetailId);
     setLoading(false);
   };
   const router = useRouter();
   const { pid } = router.query;
-  const fetchDataDetail = async (id) => {
+  const fetchDataDetail = async (id, fetchData) => {
     const res = await Axios.get(`detail-page/${id}`);
     setDataDetail(res.data);
   };
   useEffect(() => {
     if (router.isReady) {
-      fetchData();
-      fetchDataDetail(router.query.DetailId);
+      mergeFunction(router);
     }
   }, [router.isReady]);
 
@@ -51,8 +54,8 @@ export default function DetailId() {
               <PageHeaders data={dataDetail} />
             </div>
             <Description data={dataDetail} />
-            <TypeHotel type="livingroom" data={data.category[1]} />
-            <Review data={dataDetail.testimonial} />
+            <TypeHotel type="livingroom" data={data?.category[1]} />
+            <Review data={dataDetail?.testimonial} />
           </>
         )}
       </div>
