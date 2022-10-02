@@ -11,4 +11,6 @@ module.exports = {
   env: {
     API_BACKEND: process.env.NEXT_PUBLIC_API_BACKEND,
   },
+  source: "api/:path*",
+  destination: "http://localhost:3000/:path*",
 };
