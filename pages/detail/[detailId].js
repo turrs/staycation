@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Axios from "../../axios";
 import { LoadingOutlined } from "@ant-design/icons";
 import {
@@ -11,27 +11,39 @@ import {
 } from "../../components";
 import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
+import { AppContext } from "../../context";
 export default function DetailId() {
+  const { detailHotel } = useContext(AppContext);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [dataDetail, setDataDetail] = useState();
   const fetchData = async () => {
+    try {
+      const res = await Axios.get("landing-page");
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const mergeFunction = async (detailHotel) => {
     setLoading(true);
-    const res = await Axios.get("landing-page");
-    setData(res.data);
-    console.log("data detail", res.data);
+    await fetchData();
+    await fetchDataDetail(detailHotel);
     setLoading(false);
   };
   const router = useRouter();
   const { pid } = router.query;
-  const fetchDataDetail = async (id) => {
-    const res = await Axios.get(`detail-page/${id}`);
-    setDataDetail(res.data);
+  const fetchDataDetail = async (detailHotel) => {
+    try {
+      const res = await Axios.get(`detail-page/${detailHotel}`);
+      setDataDetail(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     if (router.isReady) {
-      fetchData();
-      fetchDataDetail(router.query.DetailId);
+      mergeFunction(detailHotel);
     }
   }, [router.isReady]);
 
@@ -51,8 +63,8 @@ export default function DetailId() {
               <PageHeaders data={dataDetail} />
             </div>
             <Description data={dataDetail} />
-            <TypeHotel type="livingroom" data={data.category[1]} />
-            <Review data={dataDetail.testimonial} />
+            <TypeHotel type="livingroom" data={data?.category[1]} />
+            <Review data={dataDetail?.testimonial} />
           </>
         )}
       </div>
